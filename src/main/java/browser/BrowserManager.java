@@ -5,10 +5,10 @@ import com.microsoft.playwright.*;
 import java.awt.*;
 
 public class BrowserManager {
-    Playwright playwright; //used to create an instance of the Chromium, Firefox browser etc.
-    Browser browser;//is the isolated browser session.
-    BrowserContext browserContext;//represents the browser instance.
-    Page page;//is the single tab or window in the browser.
+    public Playwright playwright; //used to create an instance of the Chromium, Firefox browser etc.
+    public Browser browser;//is the isolated browser session.
+    public BrowserContext browserContext;//represents the browser instance.
+    public Page page;//is the single tab or window in the browser.
 
     public void setUp(){
 

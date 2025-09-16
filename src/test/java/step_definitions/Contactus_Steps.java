@@ -1,11 +1,19 @@
 package step_definitions;
 
+import browser.BrowserManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
 public class Contactus_Steps {
+    BrowserManager browserManager;
+    public  Contactus_Steps(BrowserManager browserManager){
+        this.browserManager=browserManager;
+    }
+
     @And("I type a first name")
     public void i_type_a_first_name() {
+        browserManager.page.getByPlaceholder("First Name").fill("Akshay");
+        browserManager.page.pause();
         System.out.println("To do 3");
 
     }
