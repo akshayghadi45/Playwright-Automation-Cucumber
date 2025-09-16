@@ -1,8 +1,15 @@
 package step_definitions;
 
 import browser.BrowserManager;
+import com.microsoft.playwright.Locator;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.testng.Assert;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class Contactus_Steps {
     BrowserManager browserManager;
@@ -13,29 +20,56 @@ public class Contactus_Steps {
     @And("I type a first name")
     public void i_type_a_first_name() {
         browserManager.page.getByPlaceholder("First Name").fill("Akshay");
-        browserManager.page.pause();
-        System.out.println("To do 3");
-
     }
+
     @And("I type a last name")
     public void i_type_a_last_name() {
-        System.out.println("To do 4");
+        browserManager.page.getByPlaceholder("Last Name").fill("Ghadi");
     }
+
     @And("I enter email address")
     public void i_enter_email_address() {
-        System.out.println("To do 5");
+        browserManager.page.getByPlaceholder("Email Address").fill("akshay.ghadi@gmail.com");
     }
+
     @And("I type a comment")
     public void i_type_a_comment() {
-        System.out.println("To do 6");
+        browserManager.page.getByPlaceholder("Comments").fill("SOmehtinghjb hsdbci");
     }
+
     @And("I click on the submit button")
     public void i_click_on_the_submit_button() {
-        System.out.println("To do 7");
+        browserManager.page.locator("input[value=SUBMIT]").click();
     }
+
     @Then("I should be presented with a successful contact us submission message")
     public void i_should_be_presented_with_a_successful_contact_us_submission_message() {
-        System.out.println("To do 8");
+        assertThat(browserManager.page.locator("#contact_reply > h1")).
+                hasText("Thank You for your Message!");
 
     }
+    @Then("I should be presented with a unsuccessful contact us submission message")
+    public void i_should_be_presented_with_a_unsuccessful_contact_us_submission_message() {
+        //wait for the body element
+        browserManager.page.waitForSelector("body");
+
+        //Locator of the body element
+        Locator bodyElement = browserManager.page.locator("body");
+        //Extract text from the element
+        String bodyText =  bodyElement.textContent();
+
+        //Assert that the body text matches the expected pattern
+        Pattern pattern = Pattern.compile("Error: (all fields are required|Invalid email address)");
+        Matcher matcher = pattern.matcher(bodyText);
+        Assert.assertTrue(matcher.find(), "Body text does not match the expected pattern: "+ bodyText);
+
+
+
+        //Alternate way
+//        assertThat(browserManager.page.locator("//body")).
+//                containsText("Error: Invalid email address");
+//        assertThat(browserManager.page.locator("//body")).
+//                containsText("Error: all fields are required");
+    }
+
 }
