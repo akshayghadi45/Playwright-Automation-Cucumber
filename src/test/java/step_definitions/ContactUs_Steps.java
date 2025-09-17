@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class Contactus_Steps {
+public class ContactUs_Steps {
     BrowserManager browserManager;
-    public  Contactus_Steps(BrowserManager browserManager){
+    public ContactUs_Steps(BrowserManager browserManager){
         this.browserManager=browserManager;
     }
 
@@ -71,5 +71,27 @@ public class Contactus_Steps {
 //        assertThat(browserManager.page.locator("//body")).
 //                containsText("Error: all fields are required");
     }
+
+    @And("I type a specific first name {string}")
+    public void i_type_a_specific_first_name(String firstName) {
+        browserManager.page.getByPlaceholder("First Name").fill(firstName);
+    }
+
+    @And("I type a specific last name {string}")
+    public void i_type_a_specific_last_name(String lastName) {
+        browserManager.page.getByPlaceholder("Last Name").fill(lastName);
+    }
+
+    @And("I enter a specific email address {string}")
+    public void i_enter_a_specific_email_address(String emailAddress) {
+        browserManager.page.getByPlaceholder("Email Address").fill(emailAddress);
+    }
+
+    @And("I type a specific comment {string}")
+    public void i_type_a_specific_comment(String string) {
+        browserManager.page.getByPlaceholder("Comments").fill(string);
+    }
+
+
 
 }
