@@ -4,6 +4,7 @@ import browser.BrowserManager;
 import com.microsoft.playwright.Locator;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import net.datafaker.Faker;
 import org.testng.Assert;
 
 import java.util.regex.Matcher;
@@ -13,6 +14,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 public class ContactUs_Steps {
     BrowserManager browserManager;
+    private final Faker faker = new Faker();
     public ContactUs_Steps(BrowserManager browserManager){
         this.browserManager=browserManager;
     }
@@ -72,6 +74,7 @@ public class ContactUs_Steps {
 //                containsText("Error: all fields are required");
     }
 
+    ///************* Specific data passing using variables****************///
     @And("I type a specific first name {string}")
     public void i_type_a_specific_first_name(String firstName) {
         browserManager.page.getByPlaceholder("First Name").fill(firstName);
@@ -92,6 +95,24 @@ public class ContactUs_Steps {
         browserManager.page.getByPlaceholder("Comments").fill(string);
     }
 
+/// Random data generation using DataFaker dependency ///
 
+    @And("I type a random first name")
+    public void i_type_a_random_first_name() {
+        String randomFirstName = faker.name().firstName();
+        browserManager.page.getByPlaceholder("First Name").fill(randomFirstName);
+    }
+
+    @And("I type a random last name")
+    public void i_type_a_random_last_name() {
+        String randomLastName = faker.name().lastName();
+        browserManager.page.getByPlaceholder("Last Name").fill(randomLastName);
+    }
+
+    @And("I enter an random email address")
+    public void i_enter_an_random_email_address() {
+        String randomEmail = faker.internet().emailAddress();
+        browserManager.page.getByPlaceholder("Email Address").fill(randomEmail);
+    }
 
 }
