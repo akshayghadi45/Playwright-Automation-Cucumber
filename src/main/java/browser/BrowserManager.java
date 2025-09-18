@@ -11,6 +11,14 @@ public class BrowserManager {
     public BrowserContext browserContext;//represents the browser instance.
     public Page page;//is the single tab or window in the browser
 
+    //to capture the screenshot of the page
+    public byte[] takeScreenshot(){
+        if(page!=null){
+            return page.screenshot();
+        }
+        return new byte[0];
+    }
+
     public void setUp(){
 
         System.out.println("Setting up playwright");
