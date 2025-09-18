@@ -45,5 +45,12 @@ public class Homepage_Steps {
         browserManager.page.bringToFront();
 
     }
+    @When("I click on the login portal button")
+    public void i_click_on_the_login_portal_button() {
+        browserManager.page = browserManager.browserContext.waitForPage(()->{
+            browserManager.page.locator("#login-portal").click();
+        });
+        browserManager.page.bringToFront();
+    }
 
 }

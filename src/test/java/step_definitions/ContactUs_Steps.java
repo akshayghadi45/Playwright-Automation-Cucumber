@@ -7,10 +7,14 @@ import io.cucumber.java.en.Then;
 import net.datafaker.Faker;
 import org.testng.Assert;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static org.testng.Assert.assertTrue;
+
+
 
 public class ContactUs_Steps {
     BrowserManager browserManager;
@@ -63,7 +67,7 @@ public class ContactUs_Steps {
         //Assert that the body text matches the expected pattern
         Pattern pattern = Pattern.compile("Error: (all fields are required|Invalid email address)");
         Matcher matcher = pattern.matcher(bodyText);
-        Assert.assertTrue(matcher.find(), "Body text does not match the expected pattern: "+ bodyText);
+        assertTrue(matcher.find(), "Body text does not match the expected pattern: "+ bodyText);
 
 
 
@@ -114,5 +118,52 @@ public class ContactUs_Steps {
         String randomEmail = faker.internet().emailAddress();
         browserManager.page.getByPlaceholder("Email Address").fill(randomEmail);
     }
+
+    /// Scenario outlines
+    @And("I type a first name {word} and a last name {word}")
+    public void i_type_a_first_name_john_and_a_last_name_jones(String firstName, String lastName) {
+        browserManager.page.getByPlaceholder("First Name").fill(firstName);
+        browserManager.page.getByPlaceholder("Last Name").fill(lastName);
+    }
+
+
+    @And("I type a email address {string} and I comment {string}")
+    public void i_type_a_email_address_and_i_comment_hey_how_are_you(String emailAddress, String comment) {
+        browserManager.page.getByPlaceholder("Email Address").fill(emailAddress);
+        browserManager.page.getByPlaceholder("Comments").fill(comment);
+    }
+
+
+    @Then("I should be presented with a header text {string}")
+    public void i_should_be_presented_with_a_header_text(String expectedMessage) {
+        //Wait for the target element
+        browserManager.page.waitForSelector("//h1 | //body");
+
+        //get all elements inner text
+        List<String> innertexts = browserManager.page.locator("//h1 | //body").allInnerTexts();
+
+        //variable to store the found text
+        String foundText ="";
+        Boolean isFound = false;
+        //Check if the text is present in the innerTexts
+        for(String innerText: innertexts){
+            if(innerText.contains(expectedMessage)){
+                foundText=innerText;
+                isFound=true;
+                break;
+            }
+            else{
+                foundText=innerText;
+            }
+        }
+
+        //perform assertion
+        assertTrue(isFound, "The element does not contain the expected message. Expected message: "+
+                expectedMessage + " Actual messsage: "+foundText);
+
+
+
+    }
+
 
 }
