@@ -1,3 +1,4 @@
+@regression @login
 Feature: WebDriverUniversity.com - Login page
 
   Scenario Outline: Login to the WebDriverUniversity sucessfully
@@ -10,5 +11,8 @@ Feature: WebDriverUniversity.com - Login page
       | userId    | password     | message              |
       | webdriver | webdriver123 | validation succeeded |
       | webdriver | webdriver124 | validation failed    |
-
+    @smoke
+    Examples:
+      | userId    | password     | message              |
+      | webdriver | webdriver123 | validation succeeded |
 
