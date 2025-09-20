@@ -35,22 +35,22 @@ public class Homepage_Steps {
 
     @Given("I navigate to webdriveruniversity homepage")
     public void i_navigate_to_webdriveruniversity_homepage() {
-        browserManager.page.navigate("https://www.webdriveruniversity.com");
+        browserManager.getPage().navigate("https://www.webdriveruniversity.com");
     }
     @When("I click on the contact us button")
     public void i_click_on_the_contact_us_button() {
-        browserManager.page = browserManager.browserContext.waitForPage(()->{
-                browserManager.page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("CONTACT US Contact Us Form")).click(); // Missing semicolon
-        });
-        browserManager.page.bringToFront();
+        browserManager.setPage( browserManager.getBrowserContext().waitForPage(()->{
+                browserManager.getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("CONTACT US Contact Us Form")).click(); // Missing semicolon
+        }));
+        browserManager.getPage().bringToFront();
 
     }
     @When("I click on the login portal button")
     public void i_click_on_the_login_portal_button() {
-        browserManager.page = browserManager.browserContext.waitForPage(()->{
-            browserManager.page.locator("#login-portal").click();
-        });
-        browserManager.page.bringToFront();
+        browserManager.setPage( browserManager.getBrowserContext().waitForPage(()->{
+            browserManager.getPage().locator("#login-portal").click();
+        }));
+        browserManager.getPage().bringToFront();
     }
 
 }
