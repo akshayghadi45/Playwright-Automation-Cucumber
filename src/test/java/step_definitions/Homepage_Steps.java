@@ -1,13 +1,9 @@
 package step_definitions;
 
 import browser.BrowserManager;
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.AriaRole;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import pages.base.BasePage;
-
-import java.awt.*;
 
 public class Homepage_Steps {
 
