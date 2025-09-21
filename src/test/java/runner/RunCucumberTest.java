@@ -25,7 +25,7 @@ import static browser.BrowserManager.logger;
         glue = "step_definitions",
         //tags = "@regression"
         //tags="@regression and not @ignore",
-        tags ="@randomData",
+        tags ="@regression",
         plugin = {"pretty","json:target/cucumber.json", "html:target/cucumberReport.html"}
 )
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
