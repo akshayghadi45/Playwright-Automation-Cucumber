@@ -79,6 +79,12 @@ public class BrowserManager {
             browserContext.set( browser.get().newContext(new Browser.NewContextOptions().setViewportSize(width, height)));
             page.set(browserContext.get().newPage());
 
+            //Set timeouts from properties file for default use of values
+            int navigationTimeout = Integer.parseInt(properties.getProperty("navigation.timeout", "30000"));
+            int actionTimeout = Integer.parseInt(properties.getProperty("action.timeout", "30000"));
+            page.get().setDefaultTimeout(actionTimeout);
+            page.get().setDefaultNavigationTimeout(navigationTimeout);
+
             logger.info("Setup completed");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Failed to setup playwright", e);

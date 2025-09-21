@@ -24,7 +24,8 @@ import static browser.BrowserManager.logger;
         features = "src/test/resources/features",
         glue = "step_definitions",
         //tags = "@regression"
-        tags="@regression and not @ignore",
+        //tags="@regression and not @ignore",
+        tags ="@randomData",
         plugin = {"pretty","json:target/cucumber.json", "html:target/cucumberReport.html"}
 )
 public class RunCucumberTest extends AbstractTestNGCucumberTests {

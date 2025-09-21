@@ -39,6 +39,7 @@ public class Homepage_Steps {
     }
     @When("I click on the contact us button")
     public void i_click_on_the_contact_us_button() {
+
         browserManager.setPage( browserManager.getBrowserContext().waitForPage(()->{
                 browserManager.getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("CONTACT US Contact Us Form")).click(); // Missing semicolon
         }));

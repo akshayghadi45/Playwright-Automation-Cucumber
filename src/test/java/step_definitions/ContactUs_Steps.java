@@ -2,6 +2,9 @@ package step_definitions;
 
 import browser.BrowserManager;
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import context.PersonContext;
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import net.datafaker.Faker;
@@ -19,8 +22,11 @@ import static org.testng.Assert.assertTrue;
 public class ContactUs_Steps {
     BrowserManager browserManager;
     private final Faker faker = new Faker();
-    public ContactUs_Steps(BrowserManager browserManager){
+    private final PersonContext personContext;
+
+    public ContactUs_Steps(BrowserManager browserManager, PersonContext personContext){
         this.browserManager=browserManager;
+        this.personContext = personContext;
     }
 
     @And("I type a first name")
@@ -50,6 +56,7 @@ public class ContactUs_Steps {
 
     @Then("I should be presented with a successful contact us submission message")
     public void i_should_be_presented_with_a_successful_contact_us_submission_message() {
+        browserManager.getPage().waitForSelector("#contact_reply > h1", new Page.WaitForSelectorOptions().setTimeout(10000));
         assertThat(browserManager.getPage().locator("#contact_reply > h1")).
                 hasText("Thank You for your Message!");
 
@@ -104,19 +111,28 @@ public class ContactUs_Steps {
     @And("I type a random first name")
     public void i_type_a_random_first_name() {
         String randomFirstName = faker.name().firstName();
+        personContext.setRandomFirstName(randomFirstName);
         browserManager.getPage().getByPlaceholder("First Name").fill(randomFirstName);
     }
 
     @And("I type a random last name")
     public void i_type_a_random_last_name() {
         String randomLastName = faker.name().lastName();
+        personContext.setRandomLastName(randomLastName);
         browserManager.getPage().getByPlaceholder("Last Name").fill(randomLastName);
     }
 
     @And("I enter an random email address")
     public void i_enter_an_random_email_address() {
         String randomEmail = faker.internet().emailAddress();
+        personContext.setRandomEmail(randomEmail);
         browserManager.getPage().getByPlaceholder("Email Address").fill(randomEmail);
+    }
+
+    @And("I add a random comment")
+    public void i_add_a_random_comment() {
+        browserManager.getPage().getByPlaceholder("Comments").
+                fill("Random "+personContext.getRandomFirstName() + " " + personContext.getRandomLastName());
     }
 
     /// Scenario outlines
