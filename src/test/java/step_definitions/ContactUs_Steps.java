@@ -9,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import net.datafaker.Faker;
 import org.testng.Assert;
+import pages.ContactUsPage;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -23,35 +24,44 @@ public class ContactUs_Steps {
     BrowserManager browserManager;
     private final Faker faker = new Faker();
     private final PersonContext personContext;
+    ContactUsPage contactUsPage;
 
-    public ContactUs_Steps(BrowserManager browserManager, PersonContext personContext){
+    public ContactUs_Steps(BrowserManager browserManager, PersonContext personContext, ContactUsPage contactUsPage) {
         this.browserManager=browserManager;
         this.personContext = personContext;
+        this.contactUsPage = contactUsPage;
     }
 
     @And("I type a first name")
     public void i_type_a_first_name() {
-        browserManager.getPage().getByPlaceholder("First Name").fill("Akshay");
+        //browserManager.getPage().getByPlaceholder("First Name").fill("Akshay");
+        contactUsPage.typeFirstName("Akshay");
+
+
     }
 
     @And("I type a last name")
     public void i_type_a_last_name() {
-        browserManager.getPage().getByPlaceholder("Last Name").fill("Ghadi");
+        //browserManager.getPage().getByPlaceholder("Last Name").fill("Ghadi");
+        contactUsPage.typeLastName("David");
     }
 
     @And("I enter email address")
     public void i_enter_email_address() {
-        browserManager.getPage().getByPlaceholder("Email Address").fill("akshay.ghadi@gmail.com");
+        //browserManager.getPage().getByPlaceholder("Email Address").fill("akshay.ghadi@gmail.com");
+        contactUsPage.typeEmail("akshay.ghadi@gmail.com");
     }
 
     @And("I type a comment")
     public void i_type_a_comment() {
-        browserManager.getPage().getByPlaceholder("Comments").fill("SOmehtinghjb hsdbci");
+        //browserManager.getPage().getByPlaceholder("Comments").fill("SOmehtinghjb hsdbci");
+        contactUsPage.typeComment("This is a comment");
     }
 
     @And("I click on the submit button")
     public void i_click_on_the_submit_button() {
-        browserManager.getPage().locator("input[value=SUBMIT]").click();
+        //browserManager.getPage().locator("input[value=SUBMIT]").click();
+        contactUsPage.clickOnSubmitButton();
     }
 
     @Then("I should be presented with a successful contact us submission message")
