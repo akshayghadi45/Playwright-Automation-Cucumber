@@ -12,8 +12,10 @@ public class LoginPage extends BasePage {
     }
 
     public void typeLoginIdAndPassword(String id, String password) {
-        getBrowserManager().getPage().getByPlaceholder("Username").fill(id);
-        getBrowserManager().getPage().getByPlaceholder("Password").fill(password);
+//        getBrowserManager().getPage().getByPlaceholder("Username").fill(id);
+//        getBrowserManager().getPage().getByPlaceholder("Password").fill(password);
+        fillField("Username", id);
+        fillField("Password", password);
     }
 
     public void clickLoginButton() {
