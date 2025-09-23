@@ -66,54 +66,60 @@ public class ContactUs_Steps {
 
     @Then("I should be presented with a successful contact us submission message")
     public void i_should_be_presented_with_a_successful_contact_us_submission_message() {
-        browserManager.getPage().waitForSelector("#contact_reply > h1", new Page.WaitForSelectorOptions().setTimeout(10000));
-        assertThat(browserManager.getPage().locator("#contact_reply > h1")).
-                hasText("Thank You for your Message!");
+//        browserManager.getPage().waitForSelector("#contact_reply > h1", new Page.WaitForSelectorOptions().setTimeout(10000));
+//        assertThat(browserManager.getPage().locator("#contact_reply > h1")).
+//                hasText("Thank You for your Message!");
+        contactUsPage.verifySuccessfulSubmissionMessage();
 
     }
     @Then("I should be presented with a unsuccessful contact us submission message")
     public void i_should_be_presented_with_a_unsuccessful_contact_us_submission_message() {
-        //wait for the body element
-        browserManager.getPage().waitForSelector("body");
-
-        //Locator of the body element
-        Locator bodyElement = browserManager.getPage().locator("body");
-        //Extract text from the element
-        String bodyText =  bodyElement.textContent();
-
-        //Assert that the body text matches the expected pattern
-        Pattern pattern = Pattern.compile("Error: (all fields are required|Invalid email address)");
-        Matcher matcher = pattern.matcher(bodyText);
-        assertTrue(matcher.find(), "Body text does not match the expected pattern: "+ bodyText);
-
-
-
-        //Alternate way
-//        assertThat(browserManager.page.locator("//body")).
-//                containsText("Error: Invalid email address");
-//        assertThat(browserManager.page.locator("//body")).
-//                containsText("Error: all fields are required");
+//        //wait for the body element
+//        browserManager.getPage().waitForSelector("body");
+//
+//        //Locator of the body element
+//        Locator bodyElement = browserManager.getPage().locator("body");
+//        //Extract text from the element
+//        String bodyText =  bodyElement.textContent();
+//
+//        //Assert that the body text matches the expected pattern
+//        Pattern pattern = Pattern.compile("Error: (all fields are required|Invalid email address)");
+//        Matcher matcher = pattern.matcher(bodyText);
+//        assertTrue(matcher.find(), "Body text does not match the expected pattern: "+ bodyText);
+//
+//
+//
+//        //Alternate way
+////        assertThat(browserManager.page.locator("//body")).
+////                containsText("Error: Invalid email address");
+////        assertThat(browserManager.page.locator("//body")).
+////                containsText("Error: all fields are required");
+        contactUsPage.verifyUnsuccessfulSubmissionMessage();
     }
 
     ///************* Specific data passing using variables****************///
     @And("I type a specific first name {string}")
     public void i_type_a_specific_first_name(String firstName) {
-        browserManager.getPage().getByPlaceholder("First Name").fill(firstName);
+        //browserManager.getPage().getByPlaceholder("First Name").fill(firstName);
+        contactUsPage.typeFirstName(firstName);
     }
 
     @And("I type a specific last name {string}")
     public void i_type_a_specific_last_name(String lastName) {
-        browserManager.getPage().getByPlaceholder("Last Name").fill(lastName);
+        //browserManager.getPage().getByPlaceholder("Last Name").fill(lastName);
+        contactUsPage.typeLastName(lastName);
     }
 
     @And("I enter a specific email address {string}")
     public void i_enter_a_specific_email_address(String emailAddress) {
-        browserManager.getPage().getByPlaceholder("Email Address").fill(emailAddress);
+        //browserManager.getPage().getByPlaceholder("Email Address").fill(emailAddress);
+        contactUsPage.typeEmail(emailAddress);
     }
 
     @And("I type a specific comment {string}")
     public void i_type_a_specific_comment(String string) {
-        browserManager.getPage().getByPlaceholder("Comments").fill(string);
+        //browserManager.getPage().getByPlaceholder("Comments").fill(string);
+        contactUsPage.typeComment(string);
     }
 
 /// Random data generation using DataFaker dependency ///
@@ -122,41 +128,50 @@ public class ContactUs_Steps {
     public void i_type_a_random_first_name() {
         String randomFirstName = faker.name().firstName();
         personContext.setRandomFirstName(randomFirstName);
-        browserManager.getPage().getByPlaceholder("First Name").fill(randomFirstName);
+       //browserManager.getPage().getByPlaceholder("First Name").fill(randomFirstName);
+        contactUsPage.typeFirstName(randomFirstName);
     }
 
     @And("I type a random last name")
     public void i_type_a_random_last_name() {
         String randomLastName = faker.name().lastName();
         personContext.setRandomLastName(randomLastName);
-        browserManager.getPage().getByPlaceholder("Last Name").fill(randomLastName);
+        //browserManager.getPage().getByPlaceholder("Last Name").fill(randomLastName);
+        contactUsPage.typeLastName(randomLastName);
     }
 
     @And("I enter an random email address")
     public void i_enter_an_random_email_address() {
         String randomEmail = faker.internet().emailAddress();
         personContext.setRandomEmail(randomEmail);
-        browserManager.getPage().getByPlaceholder("Email Address").fill(randomEmail);
+        //browserManager.getPage().getByPlaceholder("Email Address").fill(randomEmail);
+        contactUsPage.typeEmail(randomEmail);
     }
 
     @And("I add a random comment")
     public void i_add_a_random_comment() {
-        browserManager.getPage().getByPlaceholder("Comments").
-                fill("Random "+personContext.getRandomFirstName() + " " + personContext.getRandomLastName());
+//        browserManager.getPage().getByPlaceholder("Comments").
+//                fill("Random "+personContext.getRandomFirstName() + " " + personContext.getRandomLastName());
+        contactUsPage.typeComment("Random "+personContext.getRandomFirstName() + " " + personContext.getRandomLastName());
     }
 
     /// Scenario outlines
     @And("I type a first name {word} and a last name {word}")
     public void i_type_a_first_name_john_and_a_last_name_jones(String firstName, String lastName) {
-        browserManager.getPage().getByPlaceholder("First Name").fill(firstName);
-        browserManager.getPage().getByPlaceholder("Last Name").fill(lastName);
+//        browserManager.getPage().getByPlaceholder("First Name").fill(firstName);
+//        browserManager.getPage().getByPlaceholder("Last Name").fill(lastName);
+        contactUsPage.typeFirstName(firstName);
+        contactUsPage.typeLastName(lastName);
+
     }
 
 
     @And("I type a email address {string} and I comment {string}")
     public void i_type_a_email_address_and_i_comment_hey_how_are_you(String emailAddress, String comment) {
-        browserManager.getPage().getByPlaceholder("Email Address").fill(emailAddress);
-        browserManager.getPage().getByPlaceholder("Comments").fill(comment);
+//        browserManager.getPage().getByPlaceholder("Email Address").fill(emailAddress);
+//        browserManager.getPage().getByPlaceholder("Comments").fill(comment);
+        contactUsPage.typeEmail(emailAddress);
+        contactUsPage.typeComment(comment);
     }
 
 
@@ -187,6 +202,7 @@ public class ContactUs_Steps {
         assertTrue(isFound, "The element does not contain the expected message. Expected message: "+
                 expectedMessage + " Actual messsage: "+foundText);
 
+        //contactUsPage.verifyHeaderText(expectedMessage);
 
 
     }

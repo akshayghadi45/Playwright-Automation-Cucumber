@@ -1,42 +1,40 @@
 package step_definitions;
 
-import browser.BrowserManager;
-import com.fasterxml.jackson.databind.jsontype.impl.AsExistingPropertyTypeSerializer;
-import com.microsoft.playwright.Locator;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.testng.Assert;
+import pages.LoginPage;
 
 public class Login_Steps {
-    BrowserManager browserManager;
-    String alertText;
+    LoginPage loginPage;
 
-    public  Login_Steps(BrowserManager browserManager) {
-        this.browserManager = browserManager;
+    public  Login_Steps( LoginPage loginPage) {
+        this.loginPage = loginPage;
     }
 
     @And("I give login id {string} and password {string}")
     public void i_give_login_id_and_password(String id, String password) {
-        browserManager.getPage().getByPlaceholder("Username").fill(id);
-        browserManager.getPage().getByPlaceholder("Password").fill(password);
-        //browserManager.page.pause();
+//        browserManager.getPage().getByPlaceholder("Username").fill(id);
+//        browserManager.getPage().getByPlaceholder("Password").fill(password);
+        loginPage.typeLoginIdAndPassword(id, password);
     }
 
     @And("I click on the login button")
     public void i_click_on_the_login_button() {
-        browserManager.getPage().onceDialog(dialog -> {
-            alertText = dialog.message();
-            dialog.accept();
-        });
-        Locator loginButton = browserManager.getPage().locator("#login-button");
-        loginButton.hover();
-        loginButton.click( new Locator.ClickOptions().setForce(true)); /// force command will click the button no matter what
+//        browserManager.getPage().onceDialog(dialog -> {
+//            alertText = dialog.message();
+//            dialog.accept();
+//        });
+//        Locator loginButton = browserManager.getPage().locator("#login-button");
+//        loginButton.hover();
+//        loginButton.click( new Locator.ClickOptions().setForce(true)); /// force command will click the button no matter what
+        loginPage.clickLoginButton();
     }
 
     @Then("I should see a validation message {string}")
     public void i_should_see_a_validation_message(String expectedAlertMessage) {
-        Assert.assertEquals(alertText, expectedAlertMessage);
+        //Assert.assertEquals(alertText, expectedAlertMessage);
+        loginPage.validataValidationMessage(expectedAlertMessage);
+
     }
 
 

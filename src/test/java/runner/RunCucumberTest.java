@@ -25,7 +25,7 @@ import static browser.BrowserManager.logger;
         glue = "step_definitions",
         //tags = "@regression"
         //tags="@regression and not @ignore",
-        tags ="@regression",
+        tags ="@login",
         plugin = {"pretty","json:target/cucumber.json", "html:target/cucumberReport.html"}
 )
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
@@ -73,6 +73,7 @@ public class RunCucumberTest extends AbstractTestNGCucumberTests {
 
     //method to get the thread count from config file
     private static int getThreadCount() {
+
         return Integer.parseInt( properties.getProperty("thread.count", "1"));
     }
 
