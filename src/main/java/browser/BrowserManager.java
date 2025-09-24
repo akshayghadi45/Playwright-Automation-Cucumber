@@ -54,7 +54,13 @@ public class BrowserManager {
         int height = (int) screenSize.getHeight();
         try {
             //Initialize a new instance of playwright and make sure resources are auto closed
-            String browserType = properties.getProperty("browser", "chromium");
+            //Try to see if jenkins is providing the browser
+
+            String browserType = System.getProperty("BROWSERTYPE");
+            if(browserType.equals(null)|| browserType.isEmpty()){
+                browserType = properties.getProperty("browser", "chromium");
+
+            }
             playwright.set(Playwright.create());
             switch (browserType) {
                 case "chromium": {
